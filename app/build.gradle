@@ -21,6 +21,7 @@ android {
 
 repositories {
     jcenter()
+    mavenCentral()
 }
 
 
@@ -30,9 +31,11 @@ dependencies {
     compile 'br.com.liveo:navigationdrawer-material:1.0.5'
     compile 'com.parse.bolts:bolts-android:1.+'
     compile fileTree(dir: 'libs', include: 'Parse-*.jar')
+    compile fileTree(dir: 'libs', include: 'ParseFacebookUtilsV4-*.jar')
     compile 'com.getbase:floatingactionbutton:1.5.1'
     compile 'com.rengwuxian.materialedittext:library:1.8.2'
     compile 'com.github.navasmdc:MaterialDesign:1.+@aar'
     compile 'com.afollestad:material-dialogs:0.6.2.4'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.facebook.android:facebook-android-sdk:4.0.0'
 }

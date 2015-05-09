@@ -15,6 +15,7 @@ import com.example.shivam.clothes.BookmarksFragment;
 import com.example.shivam.clothes.PantsFragment;
 import com.example.shivam.clothes.R;
 import com.example.shivam.clothes.ShirtsFragment;
+import com.facebook.FacebookSdk;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.parse.Parse;
 import com.parse.ParseUser;
@@ -33,6 +34,7 @@ public class MainActivity extends NavigationLiveo implements NavigationLiveoList
 
     @Override
     public void onInt(Bundle bundle) {
+        FacebookSdk.sdkInitialize(getApplicationContext());
         currentUser = ParseUser.getCurrentUser();
         if(currentUser==null)
         {

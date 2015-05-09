@@ -3,6 +3,7 @@ package com.example.shivam.clothes;
 import android.app.Application;
 
 import com.parse.Parse;
+import com.parse.ParseFacebookUtils;
 import com.parse.ParseInstallation;
 import com.parse.ParseUser;
 
@@ -17,5 +18,6 @@ public class ClothesApplication extends Application {
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "YDseQi27NMHN8HqKCq349V4rnZpVmnA6jyrVipiS", "XzTJwxPwLKEUwomwOS8X9tKinDK4yYJpsAHYDNMk");
         ParseInstallation.getCurrentInstallation().saveInBackground();
+        ParseFacebookUtils.initialize(getApplicationContext());
     }
 }
