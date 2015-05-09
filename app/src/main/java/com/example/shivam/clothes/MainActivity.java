@@ -32,6 +32,14 @@ public class MainActivity extends NavigationLiveo implements NavigationLiveoList
 
     @Override
     public void onInt(Bundle bundle) {
+        currentUser = ParseUser.getCurrentUser();
+        if(currentUser==null)
+        {
+            Intent i = new Intent(MainActivity.this, SignInActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+        }
         this.setNavigationListener(this);
         this.setDefaultStartPositionNavigation(0);
         this.removeSelectorNavigation();
@@ -65,11 +73,20 @@ public class MainActivity extends NavigationLiveo implements NavigationLiveoList
     @Override
     public void onUserInformation() {
 
-            this.mUserName.setText("Hello");
-            this.mUserEmail.setText("Hello");
+        currentUser = ParseUser.getCurrentUser();
+        if(currentUser!=null) {
+            this.mUserName.setText(currentUser.getUsername());
+            this.mUserEmail.setText(currentUser.getEmail());
             this.mUserBackground.setImageResource(R.drawable.background);
-            this.mUserPhoto.setImageResource(R.drawable.avatar);
         }
+        else
+        {
+            Intent i = new Intent(MainActivity.this, SignInActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+        }
+    }
 
 
     @Override
@@ -79,27 +96,22 @@ public class MainActivity extends NavigationLiveo implements NavigationLiveoList
         return true;
     }
 
-    /*public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        } else if (id == R.id.action_logout) {
+         if (id == R.id.action_settings) {
             ParseUser.logOut();
             Intent i = new Intent(MainActivity.this, SignInActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
-        } else if (id == R.id.action_search) {
-
         }
-
         return super.onOptionsItemSelected(item);
-    }*/
+    }
 
     @Override
     public void onItemClickNavigation(int position, int containerLayout) {

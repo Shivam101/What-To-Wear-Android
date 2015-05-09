@@ -96,7 +96,7 @@
         android:textColor="@color/white"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/emailET"
-        android:id="@+id/done"
+        android:id="@+id/register"
         android:layout_marginTop="50dp"
         />
 
