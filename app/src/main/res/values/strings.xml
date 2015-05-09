@@ -5,4 +5,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_sign_in">SignInActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
+    <string name="storage_access_error">Could not access internal storage !</string>
+    <string name="title_activity_shirt_confirmation">ShirtConfirmationActivity</string>
 </resources>

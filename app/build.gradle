@@ -34,4 +34,5 @@ dependencies {
     compile 'com.rengwuxian.materialedittext:library:1.8.2'
     compile 'com.github.navasmdc:MaterialDesign:1.+@aar'
     compile 'com.afollestad:material-dialogs:0.6.2.4'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }
