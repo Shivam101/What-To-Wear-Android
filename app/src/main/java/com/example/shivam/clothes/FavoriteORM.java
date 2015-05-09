@@ -36,7 +36,7 @@ public class FavoriteORM {
             ContentValues values = new ContentValues();
             values.put(FavoriteORM.COLUMN_URI, uriShirt);
             values.put(FavoriteORM.COLUMN_URI_2,uriPant);
-            favoriteID = myDataBase.insert(ShirtORM.TABLE_NAME, "null", values);
+            favoriteID = myDataBase.insert(FavoriteORM.TABLE_NAME, "null", values);
             Log.e(TAG, "Inserted new Favorite with ID: " + favoriteID);
             myDataBase.close();
         }

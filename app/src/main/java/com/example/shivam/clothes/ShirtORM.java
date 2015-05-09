@@ -62,6 +62,7 @@ public class ShirtORM {
         String randomUri = new String();
         Cursor cur = myDataBase.rawQuery("SELECT * from shirt ORDER BY RANDOM() LIMIT 1",null);
         Log.e("RANDOM",String.valueOf(cur.getCount()));
+        cur.moveToFirst();
         randomUri = cur.getString(0);
         return randomUri;
     }

@@ -41,7 +41,7 @@ public class SeeSuggestionActivity extends ActionBarActivity {
                 if(flag==0)
                 {
                     flag = 1;
-                    mFavorite.setImageResource(R.drawable.ic_favorite_white_24dp);
+                    mFavorite.setIcon(R.drawable.ic_favorite_white_24dp);
                     f.addImage(SeeSuggestionActivity.this, shirtUri, pantUri);
                     Toast.makeText(SeeSuggestionActivity.this,"Added to Bookmarks",Toast.LENGTH_SHORT).show();
                 }
@@ -95,7 +95,7 @@ public class SeeSuggestionActivity extends ActionBarActivity {
 
         @Override
         protected ArrayList<String> doInBackground(String... params) {
-            //shirtUri = s.getRandomUri(SeeSuggestionActivity.this);
+            shirtUri = s.getRandomUri(SeeSuggestionActivity.this);
             pantUri = p.getRandomUri(SeeSuggestionActivity.this);
             holder.add(shirtUri);
             holder.add(pantUri);
@@ -106,6 +106,7 @@ public class SeeSuggestionActivity extends ActionBarActivity {
         protected void onPostExecute(ArrayList<String> strings) {
             Picasso.with(SeeSuggestionActivity.this).load(Uri.parse(shirtUri).toString()).resize(300,300).into(randomShirt);
             Picasso.with(SeeSuggestionActivity.this).load(Uri.parse(pantUri).toString()).resize(300,300).into(randomPant);
+            pDialog.dismiss();
         }
     }
 }
