@@ -29,6 +29,7 @@ public class MainActivity extends NavigationLiveo implements NavigationLiveoList
 
     public ArrayList<String> mListNameItem;
     ParseUser currentUser;
+    static int cloth = 0;
 
     @Override
     public void onInt(Bundle bundle) {
@@ -52,7 +53,7 @@ public class MainActivity extends NavigationLiveo implements NavigationLiveoList
 
 
         ArrayList<Integer> mListIconItem = new ArrayList<>();
-        mListIconItem.add(0, R.drawable.ic_favorite_grey_500_24dp);
+        mListIconItem.add(0, R.drawable.ic_accessibility_grey_500_24dp);
         mListIconItem.add(1, R.drawable.ic_favorite_grey_500_24dp); //Item no icon set 0
         mListIconItem.add(2, R.drawable.ic_favorite_grey_500_24dp); //Item no icon set 0
         mListIconItem.add(3,R.drawable.ic_favorite_grey_500_24dp);

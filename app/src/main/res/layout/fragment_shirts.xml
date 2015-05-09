@@ -16,19 +16,17 @@
         android:paddingRight="8dp"
         android:paddingTop="8dp">
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/listRefresh"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ListView
+            <GridView
                 android:id="@+id/shirtsList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:divider="@null"
-                android:dividerHeight="0dp"></ListView>
+                android:verticalSpacing="0dp"
+                android:horizontalSpacing="0dp"
+                android:stretchMode="columnWidth"
+                android:numColumns="2"
+                android:dividerHeight="0dp"></GridView>
 
-        </android.support.v4.widget.SwipeRefreshLayout>
 
         <com.getbase.floatingactionbutton.FloatingActionsMenu
             android:id="@+id/fab1"

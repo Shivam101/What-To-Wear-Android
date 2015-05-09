@@ -7,4 +7,6 @@
     <string name="title_activity_register">RegisterActivity</string>
     <string name="storage_access_error">Could not access internal storage !</string>
     <string name="title_activity_shirt_confirmation">ShirtConfirmationActivity</string>
+    <string name="hello">Hello !</string>
+    <string name="intro2">Confused about what to wear today ?</string>
 </resources>

@@ -1,7 +1,10 @@
 package com.example.shivam.clothes;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -9,12 +12,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -24,26 +30,36 @@ import java.util.Locale;
 public class ShirtsFragment extends Fragment {
 
     FloatingActionButton mGallery,mCamera;
-    Uri mMediaUri;
+    Uri imageUri;
     int MEDIA_TYPE_IMAGE = 1;
     int PICTURE_INTENT_CODE = 2;
     int GALLERY_INTENT_CODE = 3;
+    ShirtAdapter adapter;
+    GridView shirtList;
+    ArrayList<String> sqluri;
+    ShirtORM s = new ShirtORM();
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_shirts, null);
+        MainActivity.cloth = 1;
+        mCamera = (FloatingActionButton)root.findViewById(R.id.fromCamera);
+
+        shirtList = (GridView)root.findViewById(R.id.shirtsList);
+        mGallery = (FloatingActionButton)root.findViewById(R.id.pickGallery);
         mCamera.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent pictureIntent = new Intent(
                     MediaStore.ACTION_IMAGE_CAPTURE);
-            mMediaUri = getOutputUri(MEDIA_TYPE_IMAGE);
-            if (mMediaUri == null) {
+            imageUri = getOutputUri(MEDIA_TYPE_IMAGE);
+            if (imageUri == null) {
                 Toast.makeText(getActivity(), R.string.storage_access_error, Toast.LENGTH_SHORT).show();
             } else {
-                pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mMediaUri);
+                pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                 startActivityForResult(pictureIntent, PICTURE_INTENT_CODE);
                 }
             }
         });
+        new ShirtTask().execute();
 
         /*mGallery.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +69,37 @@ public class ShirtsFragment extends Fragment {
             }
         });*/
         return root;
+    }
+
+    public class ShirtTask extends AsyncTask<String,String,ArrayList<String>>
+    {
+
+        private ProgressDialog pDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(getActivity());
+            pDialog.setMessage("Looking for your shirts ...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected ArrayList<String> doInBackground(String... params) {
+            sqluri = s.getUriFromDB(getActivity());
+            return sqluri;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<String> strings) {
+            ArrayList<String> uris = sqluri;
+            adapter = new ShirtAdapter(getActivity(),R.layout.shirt_list_item,uris);
+            shirtList.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+            pDialog.dismiss();
+        }
     }
 
     private Uri getOutputUri(int mediaType) {
@@ -97,5 +144,23 @@ public class ShirtsFragment extends Fragment {
     public ShirtsFragment newInstance(){
         ShirtsFragment mFragment = new ShirtsFragment();
         return mFragment;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == Activity.RESULT_OK)
+        {
+            Intent galleryAddIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            galleryAddIntent.setData(imageUri);
+            getActivity().sendBroadcast(galleryAddIntent);
+            Intent sendIntent = new Intent(getActivity(),ShirtConfirmationActivity.class);
+            sendIntent.setData(imageUri);
+            startActivity(sendIntent);
+        }
+        else if(resultCode != Activity.RESULT_CANCELED)
+        {
+            Toast.makeText(getActivity(), "There was an error", Toast.LENGTH_SHORT).show();
+        }
     }
 }
