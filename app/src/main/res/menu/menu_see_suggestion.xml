@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.shivam.clothes.SeeSuggestionActivity">
+    <item android:id="@+id/action_share" app:showAsAction="always" android:title="Share"
+        android:orderInCategory="100" android:icon="@drawable/ic_share_white_24dp" />
+    <item android:id="@+id/action_dismiss" app:showAsAction="always" android:title="Dismiss"
+        android:orderInCategory="200" android:icon="@drawable/ic_thumb_down_white_24dp"/>
+</menu>

@@ -32,6 +32,10 @@ public class ShirtConfirmationActivity extends ActionBarActivity {
         title = (TextView)findViewById(R.id.titleText);
         mDiscard = (Button)findViewById(R.id.cancelImage);
         imageUri = getIntent().getData();
+        if(MainActivity.cloth==2)
+        {
+            title.setText("Add this Pant ?");
+        }
         mSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,7 +45,6 @@ public class ShirtConfirmationActivity extends ActionBarActivity {
                 }
                 else if(MainActivity.cloth == 2)
                 {
-                    title.setText("Add this Pant ?");
                     p.addImage(ShirtConfirmationActivity.this,imageUri.toString());
                     Toast.makeText(ShirtConfirmationActivity.this,"Added new Pant !", Toast.LENGTH_SHORT).show();
                 }

@@ -35,6 +35,11 @@
         <activity
             android:name=".ShirtConfirmationActivity"
             android:label="@string/title_activity_shirt_confirmation"
+            android:theme="@style/AppTheme2" >
+        </activity>
+        <activity
+            android:name=".SeeSuggestionActivity"
+            android:label="@string/title_activity_see_suggestion"
             android:theme="@style/AppTheme2"
             >
         </activity>

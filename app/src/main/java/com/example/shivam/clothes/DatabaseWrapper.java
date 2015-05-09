@@ -24,6 +24,7 @@ public class DatabaseWrapper extends SQLiteOpenHelper {
         Log.e(TAG, "Creating database [" + DATABASE_NAME + " v." + DATABASE_VERSION + "]...");
         db.execSQL(ShirtORM.SQL_CREATE_TABLE);
         db.execSQL(PantORM.SQL_CREATE_TABLE);
+        db.execSQL(FavoriteORM.SQL_CREATE_TABLE);
 
         // db.close();
     }
@@ -32,6 +33,7 @@ public class DatabaseWrapper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " +ShirtORM.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " +PantORM.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " +FavoriteORM.TABLE_NAME);
         onCreate(db);
     }
 }
