@@ -82,6 +82,25 @@
         android:layout_marginTop="50dp"
         />
 
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign in with Facebook"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:drawablePadding="10dp"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true"
+        android:drawableLeft="@drawable/com_facebook_button_icon"
+        android:textColor="@color/white"
+        android:background="@color/fb_blue"
+        android:id="@+id/facebookSignIn"
+        android:layout_below="@+id/done"
+        android:layout_marginTop="30dp"
+        />
+
     <com.gc.materialdesign.views.ButtonFlat
         android:id="@+id/register"
         android:text="OR CREATE A NEW ACCOUNT"
@@ -89,7 +108,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:background="@color/nliveo_red_colorPrimary"
-        android:layout_below="@id/done"
+        android:layout_below="@id/facebookSignIn"
         android:layout_marginTop="30dp"
         />
 

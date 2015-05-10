@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Clothes</string>
+    <string name="app_name">What to Wear ?</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -10,4 +10,6 @@
     <string name="hello">Hello !</string>
     <string name="intro2">Confused about what to wear today ?</string>
     <string name="title_activity_see_suggestion">SeeSuggestionActivity</string>
+    <string name="title_activity_facebook_sign_up">FacebookSignUpActivity</string>
+    <string name="app_id">864499083610017</string>
 </resources>

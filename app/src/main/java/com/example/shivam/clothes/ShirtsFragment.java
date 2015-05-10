@@ -13,10 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -37,17 +40,25 @@ public class ShirtsFragment extends Fragment {
     ShirtAdapter adapter;
     GridView shirtList;
     ArrayList<String> sqluri;
+    ImageView emptyImage;
+    TextView emptyText;
     ShirtORM s = new ShirtORM();
+    FloatingActionsMenu fabMenu;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_shirts, null);
         MainActivity.cloth = 1;
         mCamera = (FloatingActionButton)root.findViewById(R.id.fromCamera);
+        emptyImage = (ImageView)root.findViewById(R.id.emptyImage);
+        emptyText = (TextView)root.findViewById(R.id.emptyText);
+        fabMenu = (FloatingActionsMenu)root.findViewById(R.id.fab1);
+
 
         shirtList = (GridView)root.findViewById(R.id.shirtsList);
         mGallery = (FloatingActionButton)root.findViewById(R.id.pickGallery);
         mCamera.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            fabMenu.collapse();
             Intent pictureIntent = new Intent(
                     MediaStore.ACTION_IMAGE_CAPTURE);
             imageUri = getOutputUri(MEDIA_TYPE_IMAGE);
@@ -64,12 +75,13 @@ public class ShirtsFragment extends Fragment {
         mGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fabMenu.collapse();
                 Intent galleryIntent = new Intent();
                 galleryIntent.setType("image/*");
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(galleryIntent, "Select Picture"), GALLERY_INTENT_CODE);
-                //Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                //startActivityForResult(galleryIntent, GALLERY_INTENT_CODE);
+//                Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                startActivityForResult(galleryIntent, GALLERY_INTENT_CODE);
             }
         });
         return root;
@@ -98,11 +110,20 @@ public class ShirtsFragment extends Fragment {
 
         @Override
         protected void onPostExecute(ArrayList<String> strings) {
-            ArrayList<String> uris = sqluri;
-            adapter = new ShirtAdapter(getActivity(),R.layout.shirt_list_item,uris);
-            shirtList.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
-            pDialog.dismiss();
+            if(s.isEmpty(getActivity()))
+            {
+                shirtList.setVisibility(View.GONE);
+                emptyText.setVisibility(View.VISIBLE);
+                emptyImage.setVisibility(View.VISIBLE);
+                pDialog.dismiss();
+            }
+            else {
+                ArrayList<String> uris = sqluri;
+                adapter = new ShirtAdapter(getActivity(), R.layout.shirt_list_item, uris);
+                shirtList.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                pDialog.dismiss();
+            }
         }
     }
 
@@ -153,19 +174,23 @@ public class ShirtsFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == Activity.RESULT_OK && requestCode == PICTURE_INTENT_CODE && data!=null)
+        if(resultCode == Activity.RESULT_OK && requestCode == PICTURE_INTENT_CODE)
         {
             Intent galleryAddIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
             galleryAddIntent.setData(imageUri);
             getActivity().sendBroadcast(galleryAddIntent);
+
             Intent sendIntent = new Intent(getActivity(),ShirtConfirmationActivity.class);
             sendIntent.setData(imageUri);
+            //sendIntent.putExtra("FILE_URI", imageUri);
             startActivity(sendIntent);
         }
         else if(resultCode == Activity.RESULT_OK && requestCode == GALLERY_INTENT_CODE && data!=null)
         {
-            //Intent galleryAddIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            Intent galleryAddIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
             galleryUri = data.getData();
+            galleryAddIntent.setData(galleryUri);
+            getActivity().sendBroadcast(galleryAddIntent);
             //galleryAddIntent.setData(galleryUri);
             Intent sendIntent = new Intent(getActivity(),ShirtConfirmationActivity.class);
             sendIntent.setData(galleryUri);

@@ -56,16 +56,14 @@ public class MainActivity extends NavigationLiveo implements NavigationLiveoList
 
         ArrayList<Integer> mListIconItem = new ArrayList<>();
         mListIconItem.add(0, R.drawable.ic_accessibility_grey_500_24dp);
-        mListIconItem.add(1, R.drawable.ic_favorite_grey_500_24dp); //Item no icon set 0
-        mListIconItem.add(2, R.drawable.ic_favorite_grey_500_24dp); //Item no icon set 0
+        mListIconItem.add(1, R.drawable.shirt); //Item no icon set 0
+        mListIconItem.add(2, R.drawable.pant); //Item no icon set 0
         mListIconItem.add(3,R.drawable.ic_favorite_grey_500_24dp);
 
         ArrayList<Integer> mListHeaderItem = new ArrayList<>();
         mListHeaderItem.add(4);
 
 
-        this.setFooterNavigationVisible(true);
-        this.setFooterInformationDrawer("Feedback", R.drawable.ic_accessibility_grey_500_24dp);
         SparseIntArray mSparseCounterItem = new SparseIntArray(); //indicate all items that have a counter
         //this.setFooterNavigationVisible(false);
         this.setNavigationAdapter(mListNameItem, mListIconItem, mListHeaderItem, mSparseCounterItem);

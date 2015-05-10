@@ -67,6 +67,22 @@ public class PantORM {
         return randomUri;
     }
 
+    public boolean isEmpty(Context c)
+    {
+        DatabaseWrapper databaseWrapper = new DatabaseWrapper(c);
+        myDataBase = databaseWrapper.getWritableDatabase();
+        Cursor cur = myDataBase.rawQuery("SELECT COUNT(*) FROM pant",null);
+        if (cur != null) {
+            cur.moveToFirst();
+            if (cur.getInt(0) == 0) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+
     public boolean isDatabaseOpened() {
         if (myDataBase == null) {
             return false;

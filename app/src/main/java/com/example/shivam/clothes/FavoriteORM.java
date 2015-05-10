@@ -43,6 +43,22 @@ public class FavoriteORM {
         return (int) favoriteID;
     }
 
+    public boolean isEmpty(Context c)
+    {
+        DatabaseWrapper databaseWrapper = new DatabaseWrapper(c);
+        myDataBase = databaseWrapper.getWritableDatabase();
+        Cursor cur = myDataBase.rawQuery("SELECT COUNT(*) FROM favorite",null);
+        if (cur != null) {
+            cur.moveToFirst();
+            if (cur.getInt(0) == 0) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+
     public ArrayList<String> getShirtUriFromDB(Context c)
     {
         DatabaseWrapper databaseWrapper = new DatabaseWrapper(c);

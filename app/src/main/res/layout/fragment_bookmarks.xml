@@ -19,6 +19,26 @@
         android:layout_height="match_parent"
         ></ListView>
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_favorite_grey_500_48dp"
+            android:id="@+id/emptyImage"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You have no favorites."
+            android:id="@+id/emptyText"
+            android:visibility="gone"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/emptyImage"
+            android:layout_marginTop="30dp"
+            />
+
+
     </RelativeLayout>
 
 

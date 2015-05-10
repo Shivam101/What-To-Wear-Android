@@ -65,9 +65,8 @@ public class BookmarksAdapter extends BaseAdapter {
         {
             holder = (BookmarkHolder)row.getTag();
         }
-
-        Picasso.with(this.context).load(Uri.parse(shirtUri.get(position)).toString()).resize(300,300).into(holder.shirtImage);
-        Picasso.with(this.context).load(Uri.parse(pantUri.get(position)).toString()).resize(300,300).into(holder.pantImage);
+        Picasso.with(this.context).load(Uri.parse(shirtUri.get(position)).toString()).resize(300, 300).placeholder(R.drawable.placeholder).into(holder.shirtImage);
+        Picasso.with(this.context).load(Uri.parse(pantUri.get(position)).toString()).resize(300, 300).placeholder(R.drawable.placeholder).into(holder.pantImage);
         return row;
     }
 

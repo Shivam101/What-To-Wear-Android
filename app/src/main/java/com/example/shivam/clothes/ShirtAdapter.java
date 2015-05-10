@@ -58,7 +58,7 @@ public class ShirtAdapter extends BaseAdapter {
         } else {
             holder = (ShirtHolder) row.getTag();
         }
-        Picasso.with(this.context).load(Uri.parse(uri.get(position)).toString()).resize(300, 300).into(holder.shirtImage);
+        Picasso.with(this.context).load(Uri.parse(uri.get(position)).toString()).resize(300, 300).placeholder(R.drawable.placeholder).into(holder.shirtImage);
         return row;
 
     }

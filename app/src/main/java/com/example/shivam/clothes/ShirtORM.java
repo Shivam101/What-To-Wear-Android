@@ -33,11 +33,27 @@ public class ShirtORM {
         if (isDatabaseOpened()) {
             ContentValues values = new ContentValues();
             values.put(ShirtORM.COLUMN_URI, uri);
+            System.out.println("Added URI "+uri);
             shirtID = myDataBase.insert(ShirtORM.TABLE_NAME, "null", values);
             Log.e(TAG, "Inserted new Shirt with ID: " + shirtID);
             myDataBase.close();
         }
         return (int) shirtID;
+    }
+
+    public boolean isEmpty(Context c)
+    {
+        DatabaseWrapper databaseWrapper = new DatabaseWrapper(c);
+        myDataBase = databaseWrapper.getWritableDatabase();
+        Cursor cur = myDataBase.rawQuery("SELECT COUNT(*) FROM shirt",null);
+        if (cur != null) {
+            cur.moveToFirst();
+            if (cur.getInt(0) == 0) {
+                return true;
+            }
+        }
+        return false;
+
     }
 
     public ArrayList<String> getUriFromDB(Context c)

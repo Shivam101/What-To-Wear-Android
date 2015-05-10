@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -22,9 +24,13 @@ public class BookmarksFragment extends Fragment {
     ArrayList<String> shirts,pants;
     ArrayList<ArrayList<String>> holder;
     BookmarksAdapter adapter;
+    ImageView emptyImage;
+    TextView emptyText;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_bookmarks, null);
         mBookmarkList = (ListView)root.findViewById(R.id.bookmarkList);
+        emptyImage = (ImageView)root.findViewById(R.id.emptyImage);
+        emptyText = (TextView)root.findViewById(R.id.emptyText);
         holder = new ArrayList<ArrayList<String>>();
         shirts = new ArrayList<>();
         pants = new ArrayList<>();
@@ -63,12 +69,21 @@ public class BookmarksFragment extends Fragment {
 
         @Override
         protected void onPostExecute(ArrayList<ArrayList<String>> strings) {
-            ArrayList<String> finalShirt = shirts;
-            ArrayList<String> finalPant = pants;
-            adapter = new BookmarksAdapter(getActivity(),R.layout.bookmark_list_item,finalShirt,finalPant);
-            mBookmarkList.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
-            pDialog.dismiss();
+            if(f.isEmpty(getActivity()))
+            {
+                emptyText.setVisibility(View.VISIBLE);
+                emptyImage.setVisibility(View.VISIBLE);
+                mBookmarkList.setVisibility(View.GONE);
+                pDialog.dismiss();
+            }
+            else {
+                ArrayList<String> finalShirt = shirts;
+                ArrayList<String> finalPant = pants;
+                adapter = new BookmarksAdapter(getActivity(), R.layout.bookmark_list_item, finalShirt, finalPant);
+                mBookmarkList.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                pDialog.dismiss();
+            }
         }
     }
 

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
@@ -19,6 +20,8 @@ public class SuggestionFragment extends Fragment {
 
     FloatingActionButton mGetSuggestion;
     RelativeLayout card;
+    ShirtORM s = new ShirtORM();
+    PantORM p = new PantORM();
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_suggestion, null);
         mGetSuggestion = (FloatingActionButton)root.findViewById(R.id.getSuggestion);
@@ -26,8 +29,13 @@ public class SuggestionFragment extends Fragment {
         mGetSuggestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(),SeeSuggestionActivity.class);
-                startActivity(i);
+                if(s.isEmpty(getActivity())||p.isEmpty(getActivity())){
+                    Toast.makeText(getActivity(),"Add some clothes first",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Intent i = new Intent(getActivity(), SeeSuggestionActivity.class);
+                    startActivity(i);
+                }
             }
         });
         return root;
