@@ -30,10 +30,11 @@ import java.util.Locale;
 public class PantsFragment extends Fragment {
 
     FloatingActionButton mGallery,mCamera;
-    Uri imageUri;
+    Uri imageUri,galleryUri;
     int MEDIA_TYPE_IMAGE = 1;
     int PICTURE_INTENT_CODE = 2;
     int GALLERY_INTENT_CODE = 3;
+    int MEDIA_TYPE_GALLERY = 4;
     ShirtAdapter adapter;
     GridView shirtList;
     ArrayList<String> sqluri;
@@ -60,13 +61,13 @@ public class PantsFragment extends Fragment {
         });
         new PantTask().execute();
 
-        /*mGallery.setOnClickListener(new View.OnClickListener() {
+        mGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(galleryIntent, GALLERY_INTENT_CODE);
             }
-        });*/
+        });
         return root;
     }
 
@@ -148,13 +149,22 @@ public class PantsFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == Activity.RESULT_OK)
+        if(resultCode == Activity.RESULT_OK && requestCode == PICTURE_INTENT_CODE && data!=null)
         {
             Intent galleryAddIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
             galleryAddIntent.setData(imageUri);
             getActivity().sendBroadcast(galleryAddIntent);
             Intent sendIntent = new Intent(getActivity(),ShirtConfirmationActivity.class);
             sendIntent.setData(imageUri);
+            startActivity(sendIntent);
+        }
+        else if(resultCode == Activity.RESULT_OK && requestCode == GALLERY_INTENT_CODE && data!=null)
+        {
+            Intent galleryAddIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            galleryUri = data.getData();
+            galleryAddIntent.setData(galleryUri);
+            Intent sendIntent = new Intent(getActivity(),ShirtConfirmationActivity.class);
+            sendIntent.setData(galleryUri);
             startActivity(sendIntent);
         }
         else if(resultCode != Activity.RESULT_CANCELED)
