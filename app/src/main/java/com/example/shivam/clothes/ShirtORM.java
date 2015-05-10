@@ -62,12 +62,10 @@ public class ShirtORM {
         myDataBase = databaseWrapper.getWritableDatabase();
         ArrayList<String> uris = new ArrayList<String>();
         Cursor cur = myDataBase.rawQuery("SELECT * from shirt",null);
-        Log.e("COUNT",String.valueOf(cur.getCount()));
         for(cur.moveToFirst();!cur.isAfterLast();cur.moveToNext())
         {
             uris.add(cur.getString(0));
         }
-        System.out.println(uris);
         return uris;
     }
 
@@ -77,7 +75,6 @@ public class ShirtORM {
         myDataBase = databaseWrapper.getWritableDatabase();
         String randomUri = new String();
         Cursor cur = myDataBase.rawQuery("SELECT * from shirt ORDER BY RANDOM() LIMIT 1",null);
-        Log.e("RANDOM",String.valueOf(cur.getCount()));
         cur.moveToFirst();
         randomUri = cur.getString(0);
         return randomUri;

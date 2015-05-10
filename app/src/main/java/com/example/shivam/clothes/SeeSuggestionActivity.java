@@ -56,18 +56,7 @@ public class SeeSuggestionActivity extends ActionBarActivity {
         mShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                mPath = takeScreenshot();
-//                Uri uri = Uri.fromFile(new File(mPath));
-//                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-//                Uri screenshotUri = uri;
-//                sharingIntent.setType("image/*");
-//                sharingIntent.putExtra(Intent.EXTRA_TEXT, "body text");
-//                sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
-//                startActivity(Intent.createChooser(sharingIntent, "Share image using"));
-                //View v1 = getWindow().getDecorView().getRootView();
-                 View v1 = rv.getRootView(); //even this works
-                // View v1 = findViewById(android.R.id.content); //this works too
-                // but gives only content
+                 View v1 = rv.getRootView();
                 v1.setDrawingCacheEnabled(true);
                 bitmap = v1.getDrawingCache();
                 saveBitmap(bitmap);
@@ -134,17 +123,6 @@ public class SeeSuggestionActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_see_suggestion, menu);
         return true;
-    }
-
-    public String takeScreenshot()
-    {
-        String mPath = Environment.getExternalStorageDirectory().toString() + "/" + "SCREEN";
-        View v1 = findViewById(R.id.card);
-        v1 = v1.getRootView();
-        v1.setDrawingCacheEnabled(true);
-        Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
-        v1.setDrawingCacheEnabled(false);
-        return mPath;
     }
 
 

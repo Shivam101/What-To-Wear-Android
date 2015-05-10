@@ -173,7 +173,6 @@ public class PantsFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        System.out.println("Result code "+String.valueOf(resultCode));
         if (resultCode == Activity.RESULT_OK && requestCode == PICTURE_INTENT_CODE)
         {
             Intent galleryAddIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
